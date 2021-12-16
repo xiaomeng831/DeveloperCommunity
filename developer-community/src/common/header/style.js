@@ -42,7 +42,7 @@ export const NavItem = styled.div`
     }
 `
 export const NavSearch = styled.input.attrs(
-    {placeholder:' Search'}
+    {placeholder: 'Search'}
 )`
     width: 160px;
     height: 38px;
@@ -79,5 +79,20 @@ export const Button = styled.div`
     &.writting {
         color:#fff;
         background: #ec6149;
+    }
+`
+
+
+export const SearchWrapper = styled.div`
+    position: relative;
+    float: left;
+    .icon {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 30px;
+        line-height: 25px;
+        border-radius: 15px;
+        color: #969696;
     }
 `
