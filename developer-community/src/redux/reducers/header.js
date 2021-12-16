@@ -1,10 +1,10 @@
-import {SEARCH_FOCUS, SEARCH_BLUR} from './constant'
+import {SEARCH_FOCUS, SEARCH_BLUR} from '../constant'
 
 const defaultState = {
     focused: false
 }
 
-const reducer = (state = defaultState, action) => {
+const header = (state = defaultState, action) => {
     if( action.type === SEARCH_FOCUS){
         return {focused: true}
     }
@@ -14,4 +14,4 @@ const reducer = (state = defaultState, action) => {
     return state
 }
 
-export default reducer
+export default header
