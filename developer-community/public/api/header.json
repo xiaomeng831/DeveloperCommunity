@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "data": ["前端", "后端", "数据库", "大数据", "人工智能", "爬虫", "Andriod",
+            "IOS", "Java", "JavaScript", "Python", "react", "redux",
+            "Html", "CSS", "MySql", "Oracle", "PostgreSql", "MongoDB",
+            "Vue"]
+
+}

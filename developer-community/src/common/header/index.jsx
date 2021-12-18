@@ -1,14 +1,42 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import {focused, blur} from '../../redux/action'
+import { focused, blur, getList, mouseIn, mouseOut, changePage } from '../../redux/action'
 import {
     HeaderWrapper, Logo, Nav, NavItem, NavSearch,
-    Addition, Button, SearchWrapper
+    Addition, Button, SearchWrapper, SearchInfo,
+    SearchInfoTitle, SearchInfoSwitch, SearchInfoItem,
+    SearchInfoList
 } from './style'
 
 
 class Header extends Component {
+
+    getListArea = () => {
+        const newList = this.props.list.toJS()
+        const pageList = []
+
+        if(newList.length){
+            for(let i = (this.props.page - 1) * 10; i < this.props.page * 10; i++){
+                pageList.push(<SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>)
+            }
+        }
+
+        if(this.props.focused || this.props.mouseIn){
+            return (<SearchInfo onMouseEnter={this.props.handleMouseIn} onMouseLeave={this.props.handleMouseOut}>
+                        <SearchInfoTitle>
+                            热门搜索
+                            <SearchInfoSwitch onClick={() => this.props.changePage(this.props.page, this.props.totalPage)}>
+                                换一批
+                            </SearchInfoSwitch>
+                        </SearchInfoTitle>
+                        <SearchInfoList>
+                            {pageList}
+                        </SearchInfoList>
+                    </SearchInfo>
+            )
+        }   
+    }
 
     render(){
         return (
@@ -36,6 +64,7 @@ class Header extends Component {
                         <i className={this.props.focused ?'icon focused':"icon blur"}>
                             <i className="fas">&#xf002;</i>
                         </i>
+                        {this.getListArea()}
                     </SearchWrapper>
                 </Nav>
                 <Addition>
@@ -50,19 +79,39 @@ class Header extends Component {
     }
 }
 
+
+
 const mapStateToProps = (state) => {
     return {
-        focused: state.header.focused
+        focused: state.getIn(['header','focused']),
+        list: state.getIn(['header','list']),
+        page: state.getIn(['header', 'page']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        mouseIn: state.getIn(['header', 'mouseIn'])
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         changeToFocused() {
-            dispatch(focused)
+            dispatch(getList())
+            dispatch(focused())
         },
         changeToBlur(){
-            dispatch(blur)
+            dispatch(blur())
+        },
+        handleMouseIn(){
+            dispatch(mouseIn())
+        },
+        handleMouseOut(){
+            dispatch(mouseOut())
+        },
+        changePage(page, totalPage){
+            if(page < totalPage){
+                dispatch(changePage(page + 1))
+            }else{
+                dispatch(changePage(1))
+            }
         }
     }
 }
