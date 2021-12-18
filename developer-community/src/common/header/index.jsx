@@ -6,7 +6,7 @@ import {
     HeaderWrapper, Logo, Nav, NavItem, NavSearch,
     Addition, Button, SearchWrapper, SearchInfo,
     SearchInfoTitle, SearchInfoSwitch, SearchInfoItem,
-    SearchInfoList
+    SearchInfoList, SpinIcon
 } from './style'
 
 
@@ -26,8 +26,11 @@ class Header extends Component {
             return (<SearchInfo onMouseEnter={this.props.handleMouseIn} onMouseLeave={this.props.handleMouseOut}>
                         <SearchInfoTitle>
                             热门搜索
-                            <SearchInfoSwitch onClick={() => this.props.changePage(this.props.page, this.props.totalPage)}>
-                                换一批
+                            <SearchInfoSwitch onClick={() => this.props.changePage(this.props.page, this.props.totalPage, this.spinIcon)}>
+                                <SpinIcon ref={(c) => {this.spinIcon = c}}>
+                                    <i className="fas">&#xf2f1;</i>
+                                </SpinIcon>
+                                &nbsp;换一批
                             </SearchInfoSwitch>
                         </SearchInfoTitle>
                         <SearchInfoList>
@@ -57,7 +60,7 @@ class Header extends Component {
                         >
                             <NavSearch 
                                 className={this.props.focused ?'focused':"blur"}
-                                onFocus={this.props.changeToFocused}
+                                onFocus={() => this.props.changeToFocused(this.props.list)}
                                 onBlur={this.props.changeToBlur}
                             ></NavSearch>
                         </CSSTransition>
@@ -93,8 +96,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeToFocused() {
-            dispatch(getList())
+        changeToFocused(list) {
+            (list.size === 0) && dispatch(getList())
             dispatch(focused())
         },
         changeToBlur(){
@@ -106,7 +109,16 @@ const mapDispatchToProps = (dispatch) => {
         handleMouseOut(){
             dispatch(mouseOut())
         },
-        changePage(page, totalPage){
+        changePage(page, totalPage, spin){
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig, '')
+            if(originAngle) {
+                originAngle = parseInt(originAngle,10)
+                originAngle = originAngle + 360
+            }else {
+                originAngle = 360
+            }
+            spin.style.transform = `rotate(${originAngle}deg)`
+            
             if(page < totalPage){
                 dispatch(changePage(page + 1))
             }else{
