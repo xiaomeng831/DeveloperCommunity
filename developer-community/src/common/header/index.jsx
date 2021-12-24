@@ -25,12 +25,12 @@ class Header extends Component {
         if(this.props.focused || this.props.mouseIn){
             return (<SearchInfo onMouseEnter={this.props.handleMouseIn} onMouseLeave={this.props.handleMouseOut}>
                         <SearchInfoTitle>
-                            热门搜索
+                            Popular Tags
                             <SearchInfoSwitch onClick={() => this.props.changePage(this.props.page, this.props.totalPage, this.spinIcon)}>
                                 <SpinIcon ref={(c) => {this.spinIcon = c}}>
                                     <i className="fas">&#xf2f1;</i>
                                 </SpinIcon>
-                                &nbsp;换一批
+                                &nbsp;change tags
                             </SearchInfoSwitch>
                         </SearchInfoTitle>
                         <SearchInfoList>
@@ -48,10 +48,6 @@ class Header extends Component {
                 <Nav>
                     <NavItem className='left'>Home</NavItem>
                     <NavItem className='left'>Download App</NavItem>
-                    <NavItem className='right'>Log in</NavItem>
-                    <NavItem className='right'>
-                        <i className="fas">&#xf042;</i>
-                    </NavItem>
                     <SearchWrapper>
                         <CSSTransition
                             in={this.props.focused}
@@ -76,6 +72,7 @@ class Header extends Component {
                         Create Post
                         </Button>
                     <Button className='reg'>Sign up</Button>
+                    <Button className='log'>Log in</Button>
                 </Addition>
             </HeaderWrapper>
         )

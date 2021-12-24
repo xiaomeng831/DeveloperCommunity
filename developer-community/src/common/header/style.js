@@ -30,16 +30,7 @@ export const NavItem = styled.div`
     padding: 0 15px;
     font-size: 17px;
     color: #333;
-    &.left {
-        float: left;
-    }
-    &.right {
-        float: right;
-        color: #969696;
-    }
-    &.active {
-        color: #ea6f5a;
-    }
+    float: left;
 `
 export const NavSearch = styled.input.attrs(
     {placeholder: 'Search'}
@@ -93,6 +84,9 @@ export const Button = styled.div`
     border: 1px solid #ec6149;
     font-size: 14px;
     &.reg {
+        color: #ec6149;
+    }
+    &.log {
         color: #ec6149;
     }
     &.writting {
