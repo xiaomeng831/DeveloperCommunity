@@ -1,8 +1,9 @@
 {
     "success": true,
-    "data": ["前端", "后端", "数据库", "大数据", "人工智能", "爬虫", "Andriod",
-            "IOS", "Java", "JavaScript", "Python", "react", "redux",
-            "Html", "CSS", "MySql", "Oracle", "PostgreSql", "MongoDB",
-            "Vue"]
+    "data": ["front-end", "back-end", "database", "big data", "AI", "web crawler", "Andriod",
+            "IOS", "Java", "JavaScript", "Python", "React", "Redux",
+            "HTML", "CSS", "MySql", "Oracle", "PostgreSql", "MongoDB",
+            "Vue", "Angular", "Linux", "C#", "C++", "SpringBoot", "SpringMVC",
+            "Flutter","Golang", "dart", "firebase"]
 
 }
